@@ -1,7 +1,7 @@
 # Informatie
 ImageJ macro om bestanden uit mapjes te halen en klaar te zetten voor de readers. 
 Deze versie bevat nog geen optie om automatisch de TAU-SPEX PDF files te verplaatsen naar de mapjes. Dit wordt toegevoegd wanneer duidelijk is waar deze vandaan gehaald kunnen worden.
-De macro geeft de optie om te kiezen tussen hires afbeeldingen of earl bestanden en kopieert dan de benodigde bestanden binnen de paden.
+De macro geeft de optie om te kiezen tussen hires afbeeldingen of earl bestanden en kopieert dan de benodigde bestanden binnen de paden. Wanneer het pad al is gemaakt, kunnen er met dit script ook extra bestanden aan worden toegevoegd, zonder dat bestaande informatie verloren gaat. 
 
 De benodigde paden voor de hires bestanden:
   sub-TAP01-0XX_pet_mcc_hires en sub-TAP01-0XX_pet_vr_hires worden geplaatst in:
