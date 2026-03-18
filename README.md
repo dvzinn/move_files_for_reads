@@ -1,4 +1,4 @@
-#Achtergrond
+# Achtergrond
 ImageJ macro om bestanden uit mapjes te halen en klaar te zetten voor de readers. 
 Deze versie bevat nog geen optie om automatisch de TAU-SPEX PDF files te verplaatsen naar de mapjes. Dit wordt toegevoegd wanneer duidelijk is waar deze vandaan gehaald kunnen worden.
 De macro geeft de optie om te kiezen tussen hires afbeeldingen of earl bestanden en kopieert dan de benodigde bestanden binnen de paden.
@@ -18,7 +18,7 @@ Binnen dezelfde mappenstructuur worden de earl bestanden geplaatst:
   BL\pet\raw\sub-TAP01-0XX_pet_rec-acdyn_totalbody_earl2_20
   BL\anat\processed\mr2pet_earl
 
-#Hoe te gebruiken
+# Hoe te gebruiken
 1. Open ImageJ.
 2. Klik op Plugins > New > Macro.
 3. Kopieer de create_folder_structure.java code en plak het in het venster.
