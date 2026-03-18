@@ -1,4 +1,4 @@
-# Achtergrond
+# Informatie
 ImageJ macro om bestanden uit mapjes te halen en klaar te zetten voor de readers. 
 Deze versie bevat nog geen optie om automatisch de TAU-SPEX PDF files te verplaatsen naar de mapjes. Dit wordt toegevoegd wanneer duidelijk is waar deze vandaan gehaald kunnen worden.
 De macro geeft de optie om te kiezen tussen hires afbeeldingen of earl bestanden en kopieert dan de benodigde bestanden binnen de paden.
@@ -8,15 +8,19 @@ De benodigde paden voor de hires bestanden:
     BL\pet\processed\vr_hires
 
   Vinci Image (NIfTI) (sub-TAP01-0XX_pet_rec-acdyn_brain_hires_20_sumall):
+  
     BL\pet\raw\sub-TAP01-0XX_pet_rec-acdyn_totalbody_hires_20
   
   Vinci Image (NIfTI) (sub-TAP01-0XX_mr2pet_hires):
+  
     BL\anat\processed\mr2pet_hires
 
 Binnen dezelfde mappenstructuur worden de earl bestanden geplaatst:
-  BL\pet\processed\vr_earl
-  BL\pet\raw\sub-TAP01-0XX_pet_rec-acdyn_totalbody_earl2_20
-  BL\anat\processed\mr2pet_earl
+
+    BL\pet\processed\vr_earl
+    BL\pet\raw\sub-TAP01-0XX_pet_rec-acdyn_totalbody_earl2_20
+    BL\anat\processed\mr2pet_earl
+  
 
 # Hoe te gebruiken
 1. Open ImageJ.
