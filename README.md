@@ -14,7 +14,7 @@ Op basis van deze keuze worden de juiste bestanden opgezocht en gekopieerd naar 
 
 **Toekomstige uitbreiding**  
 Deze versie bevat nog geen functionaliteit voor TAU-SPEX PDF-bestanden.  
-Deze zal worden toegevoegd zodra de PDF’s consistent aanwezig zijn in de mappenstructuur.  
+Deze zal worden toegevoegd zodra de PDF’s aanwezig zijn in de mappenstructuur.  
 
 # Mappenstructuur en bestanden
 **Hires bestanden**  
