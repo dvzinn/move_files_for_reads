@@ -3,6 +3,7 @@ Deze ImageJ macro wordt gebruikt om bestanden uit verschillende mappen te verzam
 De macro biedt de mogelijkheid om te kiezen tussen:  
 * hires visual read (vr_hires)  
 * earl visual read (vr_earl)  
+
 Op basis van deze keuze worden de juiste bestanden opgezocht en gekopieerd naar de juiste locaties.  
 
 **Belangrijk**  
