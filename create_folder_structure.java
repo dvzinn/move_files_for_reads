@@ -22,11 +22,23 @@ if (out == "") {
 // Create a dialog window for selecting the type (hires or earl)
 Dialog.create("Select type");
 // Add dropdown options to the dialog
-Dialog.addChoice("Type:", newArray("vr_hires", "vr_earl"), "vr_hires");
+Dialog.addChoice("Type:", newArray("vr_hires", "vr_earl", "tauspex_hires", "tauspex_earl"), "vr_hires");
 // Show the dialog to the user
 Dialog.show();
 // Store the selected type (vr_hires or vr_earl)
 type = Dialog.getChoice();
+
+// Determine actual VR folder and whether to include PDF
+if (type == "tauspex_hires") {
+    vrtype = "vr_hires";
+    copyPDF = true;
+} else if (type == "tauspex_earl") {
+    vrtype = "vr_earl";
+    copyPDF = true;
+} else {
+    vrtype = type;
+    copyPDF = false;
+}
 
 // ---- CREATE FOLDER STRUCTURE ----
 // Create folders inside output directory
@@ -62,6 +74,7 @@ for (s = 0; s < sublist.length; s++) {
     foundVR = false;
     foundSumall = false;
     foundMR = false;
+    foundPDF = false;
   
     // ---- DEFINE PATHS ----
     // Path to VR files (processed PET)
@@ -90,7 +103,7 @@ for (s = 0; s < sublist.length; s++) {
                 // Mark that VR files were found
                 foundVR = true;
                 // Define destination path
-                dest = out + "BL/pet/processed/" + type + "/" + name;
+                dest = out + "BL/pet/processed/" + vrtype + "/" + name;
                 // Copy file only if it does not already exist
                 if (!File.exists(dest)) {
                     File.copy(vrdir + name, dest);
