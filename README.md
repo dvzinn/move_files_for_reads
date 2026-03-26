@@ -76,10 +76,10 @@ Tijdens het uitvoeren:
 **Eindoverzicht**
 Na afloop toont de macro: 
 
-`==== SUMMARY ====
-Total subjects: X
-Successful: X
-Incomplete: X
+`==== SUMMARY ====  
+Total subjects: X  
+Successful: X  
+Incomplete: X  
 Done.`
 
 Voor extra uitleg over de werking van de code, zie de comments in het script.  
