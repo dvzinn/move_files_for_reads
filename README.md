@@ -61,7 +61,7 @@ Voor EARL-bestanden wordt dezelfde structuur gebruikt:
 4. Klik op Save en sla de macro op in de standaard macro-map van ImageJ.  
    Geef een duidelijke naam, bijvoorbeeld: create_folder_structure
 5. Start de macro via: Plugins → Macros → Run en selecteer de macro.  
-6. Volg de instructies in de pop-ups (selecteer mappen, kies type (vr / tauspex, hires / earl), voer subjecten in (comma separated)).  
+6. Volg de instructies in de pop-ups (selecteer mappen, kies type (vr_hires, vr_earl, tauspex_hires, tauspex_earl), voer subjecten in (comma separated)).  
 
 # Output en controle
 Tijdens het uitvoeren:  
