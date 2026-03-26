@@ -10,7 +10,7 @@ if (base == "") {
 }
 
 // Ask user to select the output folder (where new BL structure will be created)
-out = getDirectory("Select OUTPUT folder");
+out = getDirectory("Select OUTPUT folder, format: sub-TAP0X-XXX");
 
 // If no output folder is selected, stop the script
 if (out == "") {
@@ -32,12 +32,15 @@ type = Dialog.getChoice();
 if (type == "tauspex_hires") {
     vrtype = "vr_hires";
     copyPDF = true;
+    tauspexFolder = "tauspex_hires/";
 } else if (type == "tauspex_earl") {
     vrtype = "vr_earl";
     copyPDF = true;
+    tauspexFolder = "tauspex_earl/";
 } else {
     vrtype = type;
     copyPDF = false;
+    tauspexFolder = "";
 }
 
 // ---- CREATE FOLDER STRUCTURE ----
@@ -92,6 +95,10 @@ for (s = 0; s < sublist.length; s++) {
     // Path to MR2PET files
     mrdir = base + subject + "/AV1451/BL/anat/processed/" + mrfolder;
 
+    // tauspex path
+    if (copyPDF)
+        tauspexdir = base + subject + "/AV1451/BL/pet/processed/" + tauspexFolder;
+
     // ---- COPY VR + TAU-SPEX PDF FILES ----
     // Check if VR folder exists
     if (!File.exists(vrdir)) {
@@ -117,28 +124,33 @@ for (s = 0; s < sublist.length; s++) {
                     print("Skipped VR (exists): " + name);
                 }
             }
+        }
+    }
             
-            // ---- COPY TAUSPEX PDF ----
-            if (copyPDF && endsWith(name, ".pdf") && indexOf(name, "tauspex") != -1) {
-                foundPDF = true;
-                dest = out + "BL/pet/processed/" + vrtype + "/" + name;
-                if (!File.exists(dest)) {
-                    File.copy(vrdir + name, dest);
-                    print("Copied PDF: " + name);
-                } else {
-                    print("Skipped PDF (exists): " + name);
+        // ---- COPY TAUSPEX PDF ----
+    if (copyPDF) {
+        if (!File.exists(tauspexdir)) {
+            print("TAUSPEX folder NOT FOUND for " + subject);
+        } else {
+            pdfList = getFileList(tauspexdir);
+            for (i = 0; i < pdfList.length; i++) {
+                name = pdfList[i];
+                if (endsWith(toLowerCase(name), ".pdf") && indexOf(toLowerCase(name), "tauspex") != -1) {
+                    foundPDF = true;
+                    dest = out + "BL/pet/processed/" + vrtype + "/" + name;
+                    if (!File.exists(dest)) {
+                        File.copy(tauspexdir + name, dest);
+                        print("Copied PDF: " + name);
+                    } else {
+                        print("Skipped PDF (exists): " + name);
+                    }
                 }
             }
+            if (!foundPDF)
+                print("WARNING: No TAU-SPEX PDF found for " + subject);
         }
-    
-        // If no VR files were found, print warning
-        if (!foundVR)
-            print("WARNING: No VR files found for " + subject);
-    
-        if (copyPDF && !foundPDF)
-            print("WARNING: No TAU-SPEX PDF found for " + subject);
     }
-
+        
     // ---- COPY PET SUMALL FILE ----
     // Check if PET folder exists
     if (!File.exists(petdir)) {
