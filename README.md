@@ -66,12 +66,12 @@ Voor EARL-bestanden wordt dezelfde structuur gebruikt:
 # Output en controle
 Tijdens het uitvoeren:  
 * Per bestand wordt aangegeven:
- * gekopieerd
- * overgeslagen (bestaat al)
- * niet gevonden
+  * gekopieerd
+  * overgeslagen (bestaat al)
+  * niet gevonden
 * Per subject:
- * SUCCESS → alle benodigde bestanden aanwezig
- * INCOMPLETE → één of meerdere bestanden ontbreken
+  * SUCCESS → alle benodigde bestanden aanwezig
+  * INCOMPLETE → één of meerdere bestanden ontbreken
 
 **Eindoverzicht**     
 Na afloop toont de macro: 
