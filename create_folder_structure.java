@@ -10,7 +10,7 @@ if (base == "") {
 }
 
 // Ask user to select the output folder (where new BL structure will be created)
-out = getDirectory("Select OUTPUT folder, format: sub-TAP0X-XXX");
+out = getDirectory("Select OUTPUT folder");
 
 // If no output folder is selected, stop the script
 if (out == "") {
@@ -64,7 +64,7 @@ File.makeDirectory(out + "BL/anat/processed/" + mrfolder);
 
 // ---- SELECT SUBJECTS ----
 // Ask user to input subject IDs separated by commas
-subjects = getString("Enter subjects (comma separated):", "");
+subjects = getString("Enter subjects (comma separated, format: sub-TAP0X-XXX):", "");
 // Split the input string into an array of subjects
 sublist = split(subjects, ",");
 
