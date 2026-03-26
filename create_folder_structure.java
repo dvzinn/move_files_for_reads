@@ -45,13 +45,13 @@ if (type == "tauspex_hires") {
 File.makeDirectory(out + "BL/");
 File.makeDirectory(out + "BL/pet/");
 File.makeDirectory(out + "BL/pet/processed/");
-File.makeDirectory(out + "BL/pet/processed/" + type + "/");
+File.makeDirectory(out + "BL/pet/processed/" + vrtype + "/");
 File.makeDirectory(out + "BL/pet/raw/");
 File.makeDirectory(out + "BL/anat/");
 File.makeDirectory(out + "BL/anat/processed/");
 
 // Determine which MR2PET folder to use based on selected type
-if (type == "vr_hires")
+if (vrtype == "vr_hires")
     mrfolder = "mr2pet_hires/";
 else
     mrfolder = "mr2pet_earl/";
@@ -66,10 +66,15 @@ subjects = getString("Enter subjects (comma separated):", "");
 sublist = split(subjects, ",");
 
 // ---- LOOP OVER SUBJECTS ----
+totalSubjects = sublist.length;
+successCount = 0;
+incompleteCount = 0;
 // Loop over each subject entered by the user
 for (s = 0; s < sublist.length; s++) {
     // Get current subject ID
-    subject = sublist[s];
+    subject = trim(sublist[s]);
+    if (subject == "")
+        continue;
     // Initialize flags to track whether files are found
     foundVR = false;
     foundSumall = false;
@@ -78,16 +83,16 @@ for (s = 0; s < sublist.length; s++) {
   
     // ---- DEFINE PATHS ----
     // Path to VR files (processed PET)
-    vrdir = base + subject + "/AV1451/BL/pet/processed/" + type + "/";
+    vrdir = base + subject + "/AV1451/BL/pet/processed/" + vrtype + "/";
     // Path to raw PET data depends on selected type
-    if (type == "vr_hires")
+    if (vrtype == "vr_hires")
         petdir = base + subject + "/AV1451/BL/pet/raw/" + subject + "_pet_rec-acdyn_totalbody_hires_20/";
     else
         petdir = base + subject + "/AV1451/BL/pet/raw/" + subject + "_pet_rec-acdyn_totalbody_earl2_20/";
     // Path to MR2PET files
     mrdir = base + subject + "/AV1451/BL/anat/processed/" + mrfolder;
 
-    // ---- COPY VR FILES ----
+    // ---- COPY VR + TAU-SPEX PDF FILES ----
     // Check if VR folder exists
     if (!File.exists(vrdir)) {
         print("VR folder NOT FOUND for " + subject);
@@ -112,21 +117,37 @@ for (s = 0; s < sublist.length; s++) {
                     print("Skipped VR (exists): " + name);
                 }
             }
+            
+            // ---- COPY TAUSPEX PDF ----
+            if (copyPDF && endsWith(name, ".pdf") && indexOf(name, "tauspex") != -1) {
+                foundPDF = true;
+                dest = out + "BL/pet/processed/" + vrtype + "/" + name;
+                if (!File.exists(dest)) {
+                    File.copy(vrdir + name, dest);
+                    print("Copied PDF: " + name);
+                } else {
+                    print("Skipped PDF (exists): " + name);
+                }
+            }
         }
+    
         // If no VR files were found, print warning
         if (!foundVR)
             print("WARNING: No VR files found for " + subject);
+    
+        if (copyPDF && !foundPDF)
+            print("WARNING: No TAU-SPEX PDF found for " + subject);
     }
 
-    // ---- COPY PET SUMALL FILE ONLY ----
+    // ---- COPY PET SUMALL FILE ----
     // Check if PET folder exists
     if (!File.exists(petdir)) {
         print("PET folder NOT FOUND for " + subject);
     } else {
         // Get list of files in PET folder
         petlist = getFileList(petdir);
-        // Determine folder suffix based on type
-        if (type == "vr_hires")
+        // Determine folder suffix based on vrtype
+        if (vrtype == "vr_hires")
             folderSuffix = "hires_20";
         else
             folderSuffix = "earl2_20";
@@ -192,14 +213,19 @@ for (s = 0; s < sublist.length; s++) {
 
     // ---- SUBJECT SUMMARY ----
     // Check if all required files were found
-    if (foundVR && foundSumall && foundMR)
+    if (foundVR && foundSumall && foundMR && (!copyPDF || foundPDF)) {
         print("SUCCESS: " + subject);
-    else
+        successCount++;
+    } else {
         print("INCOMPLETE: " + subject);
-    // Separator line for readability in log
-    print("----");
+        incompleteCount++;
+    }
 }
 
 // ---- FINISHED ----
 // Print final message when script completes
+print("==== SUMMARY ====");
+print("Total subjects: " + totalSubjects);
+print("Successful: " + successCount);
+print("Incomplete: " + incompleteCount);
 print("Done.");
