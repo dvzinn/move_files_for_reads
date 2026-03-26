@@ -73,8 +73,7 @@ Tijdens het uitvoeren:
  * SUCCESS → alle benodigde bestanden aanwezig
  * INCOMPLETE → één of meerdere bestanden ontbreken
 
-**Eindoverzicht**   
-
+**Eindoverzicht**     
 Na afloop toont de macro: 
 
 ```
